@@ -42,14 +42,14 @@ class Store extends EventEmitter {
   }
 
   toggleTodo(id, complete) {
-    let count = 0
+    let count = 0;
     let index = 0;
-    this.todos.forEach( (todo) => {
-      if(todo.id == id){
+    this.todos.forEach((todo) => {
+      if (todo.id == id) {
         index = count;
       }
       count++;
-    })
+    });
     this.todos[index].complete = complete;
 
     this.emit("change");

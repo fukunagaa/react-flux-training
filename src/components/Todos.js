@@ -25,13 +25,13 @@ class Todos extends React.Component {
   };
 
   changeText = () => {
-    this.setState({ text: document.getElementById("text-value").value});
-  }
+    this.setState({ text: document.getElementById("text-value").value });
+  };
 
   createTodo = () => {
     const text = this.state.text;
     actions.createTodo(text);
-  }
+  };
 
   render() {
     console.log("Todos render");
@@ -42,7 +42,12 @@ class Todos extends React.Component {
     return (
       <div>
         <h1>Todos</h1>
-        <input type="text" value={this.state.text} id={"text-value"} onChange={this.changeText}/>
+        <input
+          type="text"
+          value={this.state.text}
+          id={"text-value"}
+          onChange={this.changeText}
+        />
         <input type="button" onClick={this.createTodo} value="button" />
         <h4>Todo List</h4>
         <ul>{todoComponents}</ul>

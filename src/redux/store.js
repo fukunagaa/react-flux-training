@@ -1,5 +1,8 @@
 import { EventEmitter } from "events";
 
+import { CREATE_TODO, DELETE_TODO, TOGGLE_TODO } from "./actionTypes";
+import dispatcher from "./dispatcher";
+
 class Store extends EventEmitter {
   constructor() {
     super();
@@ -38,11 +41,43 @@ class Store extends EventEmitter {
     this.emit("change");
   }
 
+  toggleTodo(id, complete) {
+    let count = 0
+    let index = 0;
+    this.todos.forEach( (todo) => {
+      if(todo.id == id){
+        index = count;
+      }
+      count++;
+    })
+    this.todos[index].complete = complete;
+
+    this.emit("change");
+  }
+
   getAll() {
     return this.todos;
+  }
+
+  handleActions(action) {
+    switch (action.type) {
+      case CREATE_TODO:
+        this.createTodo(action.text);
+        break;
+      case DELETE_TODO:
+        //
+        break;
+      case TOGGLE_TODO:
+        console.log(action.id, action.complete);
+        this.toggleTodo(action.id, action.complete);
+        break;
+      default:
+        break;
+    }
   }
 }
 
 const store = new Store();
+dispatcher.register(store.handleActions.bind(store));
 
 export default store;

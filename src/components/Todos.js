@@ -3,6 +3,7 @@ import className from "classnames";
 
 import Todo from "./Todo";
 import store from "../redux/store";
+import actions from "../redux/actions";
 
 class Todos extends React.Component {
   constructor() {
@@ -27,8 +28,9 @@ class Todos extends React.Component {
     this.setState({ text: document.getElementById("text-value").value});
   }
 
-  updateTodo = () => {
-    store.createTodo(this.state.text);
+  createTodo = () => {
+    const text = this.state.text;
+    actions.createTodo(text);
   }
 
   render() {
@@ -41,7 +43,8 @@ class Todos extends React.Component {
       <div>
         <h1>Todos</h1>
         <input type="text" value={this.state.text} id={"text-value"} onChange={this.changeText}/>
-        <input type="button" onClick={this.updateTodo} value="button" />
+        <input type="button" onClick={this.createTodo} value="button" />
+        <h4>Todo List</h4>
         <ul>{todoComponents}</ul>
       </div>
     );

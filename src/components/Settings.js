@@ -5,7 +5,10 @@ class Settings extends React.Component {
     console.log(this.props);
     const type = (this.props.match.params.mode == "extra"? " (for experts)": "");
     return (
+      <div>
       <h1>Settings{type}</h1>
+      <h3>dataset</h3>
+      </div>
     );
   }
 }

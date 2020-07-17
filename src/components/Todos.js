@@ -17,9 +17,10 @@ class Todos extends React.Component {
   // componentDidMount => マウントされた時に処理が走る
   componentDidMount = () => {
     store.on("change", () => {
+      const text = this.state.text
       this.setState({
         todos: store.getAll(),
-        text: "",
+        text,
       });
     });
   };
@@ -47,8 +48,10 @@ class Todos extends React.Component {
           value={this.state.text}
           id={"text-value"}
           onChange={this.changeText}
+          className={"todo-input width-377 todo-font"}
+          placeholder={"todo write"}
         />
-        <input type="button" onClick={this.createTodo} value="button" />
+        <input type="button" onClick={this.createTodo} value="Todo 追加" className={"todo-button todo-font"} />
         <h4>Todo List</h4>
         <ul>{todoComponents}</ul>
       </div>

@@ -41,6 +41,22 @@ class Store extends EventEmitter {
     this.emit("change");
   }
 
+  deleteTodo(id) {
+    let count = 0;
+    let index = 0;
+    this.todos.forEach((todo) => {
+      if (todo.id == id) {
+        index = count;
+        return true;
+      }
+      count++;
+    })
+    console.log("削除～");
+    this.todos.splice(index,1);
+    // 子から親に対してカスタムイベント作成
+    this.emit("change");
+  }
+
   toggleTodo(id, complete) {
     let count = 0;
     let index = 0;
@@ -52,7 +68,7 @@ class Store extends EventEmitter {
       count++;
     });
     this.todos[index].complete = complete;
-
+    // 子から親に対してカスタムイベント作成
     this.emit("change");
   }
 
@@ -66,7 +82,8 @@ class Store extends EventEmitter {
         this.createTodo(action.text);
         break;
       case DELETE_TODO:
-        //
+        console.log("aa");
+        this.deleteTodo(action.id);
         break;
       case TOGGLE_TODO:
         this.toggleTodo(action.id, action.complete);

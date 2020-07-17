@@ -9,15 +9,33 @@ class Todo extends React.Component {
     const complete = !this.props.complete;
     actions.toggleTodo(id, complete);
   };
+  deleteTodo = () => {
+    const id = this.props.id;
+    actions.deleteTodo(id);
+  };
   render() {
     const todo = this.props;
     console.log(todo);
     const todoClass = todo.complete ? "completed" : "";
     return (
-      <li className={todoClass} onClick={this.toggleTodo}>
-        {todo.complete ? "👄" : "👅"}
-        {todo.text}
-      </li>
+      <div className={"rows"}>
+        <div>
+          <li className={"todo-list-area"} onClick={this.toggleTodo}>
+            <div className={"todo-center todo-list " + todoClass}>
+              {todo.complete ? "👄" : "👅"}
+              {todo.text}
+            </div>
+          </li>
+        </div>
+        <div className={"todo-list-button-area"}>
+          <button
+            className={"todo-list-button"}
+            onClick={this.deleteTodo}
+          >
+            <i>&#x1f5d1; Delete</i>
+          </button>
+        </div>
+      </div>
     );
   }
 }

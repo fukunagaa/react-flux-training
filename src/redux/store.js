@@ -47,6 +47,7 @@ class Store extends EventEmitter {
     this.todos.forEach((todo) => {
       if (todo.id == id) {
         index = count;
+        return true;
       }
       count++;
     });
@@ -68,7 +69,6 @@ class Store extends EventEmitter {
         //
         break;
       case TOGGLE_TODO:
-        console.log(action.id, action.complete);
         this.toggleTodo(action.id, action.complete);
         break;
       default:

@@ -3,6 +3,7 @@ import className from "classnames";
 
 import Todo from "./Todo";
 import store from "../redux/store";
+import actions from "../redux/actions";
 
 class Todos extends React.Component {
   constructor() {
@@ -13,23 +14,35 @@ class Todos extends React.Component {
     };
   }
 
-  // componentDidMount => マウントされた時に処理が走る
-  componentDidMount = () => {
-    store.on("change", () => {
+  getTodos = () => {
+    const text = this.state.text
       this.setState({
         todos: store.getAll(),
-        text: "",
+        text,
       });
-    });
+  }
+
+  // componentDidMount => マウントされた時に処理が走る
+  componentDidMount = () => {
+    store.on("change", this.getTodos);
+    // マウント時のメモリ上の登録されたListener数を数える
+    console.log("count", store.listenerCount("change"));
   };
 
-  changeText = () => {
-    this.setState({ text: document.getElementById("text-value").value});
+  // componentWillUnmount => コンポーネントがアンマウントされて破棄される直前処理が走る
+  componentWillUnmount() {
+    // メモリ上の登録されたListenerを削除する
+    store.removeListener("change", this.getTodos);
   }
 
-  updateTodo = () => {
-    store.createTodo(this.state.text);
-  }
+  changeText = () => {
+    this.setState({ text: document.getElementById("text-value").value });
+  };
+
+  createTodo = () => {
+    const text = this.state.text;
+    actions.createTodo(text);
+  };
 
   render() {
     console.log("Todos render");
@@ -40,8 +53,16 @@ class Todos extends React.Component {
     return (
       <div>
         <h1>Todos</h1>
-        <input type="text" value={this.state.text} id={"text-value"} onChange={this.changeText}/>
-        <input type="button" onClick={this.updateTodo} value="button" />
+        <input
+          type="text"
+          value={this.state.text}
+          id={"text-value"}
+          onChange={this.changeText}
+          className={"todo-input width-377 todo-font"}
+          placeholder={"todo write"}
+        />
+        <input type="button" onClick={this.createTodo} value="Todo 追加" className={"todo-button todo-font"} />
+        <h4>Todo List</h4>
         <ul>{todoComponents}</ul>
       </div>
     );

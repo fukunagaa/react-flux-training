@@ -8,6 +8,7 @@ import Footer from "./Footer";
 class Layout extends React.Component {
   render() {
     const { location } = this.props;
+    console.log(this.props);
     return (
       <div>
         <Nav location={location} />

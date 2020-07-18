@@ -56,14 +56,14 @@ class Nav extends React.Component {
               </li>
               <li className={favoritesClass}>
                 <Link
-                  to="/favorites?like=TRIP&filter=FLOWER"
+                  to="/favorites/link"
                   onClick={this.toggleCollapse}
                 >
                   favorites
                 </Link>
               </li>
               <li className={settingsClass}>
-                <Link to="/settings" onClick={this.toggleCollapse}>
+                <Link to="/settings/main" onClick={this.toggleCollapse}>
                   Settings
                 </Link>
               </li>

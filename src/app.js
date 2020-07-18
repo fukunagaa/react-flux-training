@@ -13,7 +13,7 @@ ReactDOM.render(
   <Router>
     <Layout>
       <Route exact path="/" component={Home}></Route>
-      <Route exact path="/favorites/:article" component={Favorites}></Route>
+      <Route path="/favorites/:article" component={Favorites}></Route>
       <Route path="/settings/:mode(main|extra)" component={Settings}></Route>
     </Layout>
   </Router>,

@@ -14,16 +14,26 @@ class Todos extends React.Component {
     };
   }
 
-  // componentDidMount => マウントされた時に処理が走る
-  componentDidMount = () => {
-    store.on("change", () => {
-      const text = this.state.text
+  getTodos = () => {
+    const text = this.state.text
       this.setState({
         todos: store.getAll(),
         text,
       });
-    });
+  }
+
+  // componentDidMount => マウントされた時に処理が走る
+  componentDidMount = () => {
+    store.on("change", this.getTodos);
+    // マウント時のメモリ上の登録されたListener数を数える
+    console.log("count", store.listenerCount("change"));
   };
+
+  // componentWillUnmount => コンポーネントがアンマウントされて破棄される直前処理が走る
+  componentWillUnmount() {
+    // メモリ上の登録されたListenerを削除する
+    store.removeListener("change", this.getTodos);
+  }
 
   changeText = () => {
     this.setState({ text: document.getElementById("text-value").value });

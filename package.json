@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "dev": "webpack --config webpack.config.js --watch",
+    "node-server": "node ./dist/server.js",
     "webpack-server": "./node_modules/.bin/webpack-dev-server --content-base dist --config webpack.config.js"
   },
   "repository": {
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@babel/core": "^7.10.5",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/polyfill": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "axios": "^0.19.2",

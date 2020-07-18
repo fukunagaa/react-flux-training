@@ -40,6 +40,12 @@ $ npm install --save-dev classnames
 $ npm install --save-dev axios
 ```
 
+- @babel/polyfillをnode server用にインストール
+```
+$ npm install --save-dev @babel/polyfill
+```
+
+
 - @types/react-domが必要と言われたので、、、
 ```
 $ npm install @types/react-dom

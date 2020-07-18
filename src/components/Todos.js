@@ -15,10 +15,9 @@ class Todos extends React.Component {
   }
 
   getTodos = () => {
-    const text = this.state.text
       this.setState({
         todos: store.getAll(),
-        text,
+        text: "",
       });
   }
 

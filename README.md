@@ -97,4 +97,16 @@ $  npm install --save-dev @babel/plugin-proposal-class-properties
 
 ### カスタムイベント通知(emit)
 今回はthis.emitと記載し、changeイベントを子から親にデータを伝達させた。
-~~~.on("change",...)のようにして親を監視することでイベントを拾うことが可能である。
+`~~~.on("change",...)`のようにして親を監視することでイベントを拾うことが可能である。
+
+#### メモリリークの発生
+処理が重くなっていく原因になるので必ず行うこと。
+- 以下のエラーが発生
+```
+react-dom.development.js:88 Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in the componentWillUnmount method.
+```
+対策として、アンマウント(componentWillUnmount())を追加し、その中でメモリの解放を行った。
+componentDidMountにlistenerを追加処理を書いていたのでメモリリークが起きていた。
+これは登録していたListener は開放されること無くメモリ上にどんどん蓄積されたからである。
+componentWillUnmountでメモリの解放をすることで発生を防ぐことが可能である。
+その結果、メモリリークを防ぐことができる。

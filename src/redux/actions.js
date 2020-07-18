@@ -5,9 +5,20 @@ import dispatcher from "./dispatcher";
 export default {
   createTodo: function (text) {
     axios
-      .get("https://api.github.com/users/fukunagaa")
-      .then((data) => {
-        console.log("got the data!", data);
+      .get("/ajax" , { params : { name:"ken", age:11 }})
+      .then((res) => {
+        console.log("got the data! : ", res.data.foo);
+      })
+      .catch(() => {
+        console.log("通信に失敗しました。");
+      });
+    let params = new URLSearchParams();
+    params.append("name", "taro");
+    params.append("age", 17);
+    axios
+      .post("/ajax", params)
+      .then((res) => {
+        console.log("got the data! : ", res);
       })
       .catch(() => {
         console.log("通信に失敗しました。");

@@ -1,7 +1,9 @@
 const http = require("http");
 const fs = require("fs");
 const url = require("url");
+const qs = require('querystring'); 
 import { serverConfig } from "../config.js";
+import { type } from "os";
 
 const mine = serverConfig.mine;
 
@@ -22,7 +24,7 @@ async function setResponseFile(res, contextType, filePath, encoding) {
   console.info("fileレスポンスを返しました。処理を終了させます。");
 }
 
-async function setResponseText(res, contextType, resData, encoding) {
+async function setResponse(res, contextType, resData, encoding) {
   res.writeHead(200, { "Content-Type": contextType });
   res.write(resData, encoding);
   res.end();
@@ -80,9 +82,10 @@ const server = http.createServer(async (req, res) => {
           case "/ajax":
             sleep(5);
             console.log("ajax get start");
-            contextType = "text/plain";
-            resData = "ajax get successfully";
-            setResponseText(res, contextType, resData, encoding);
+            contextType = "application/json";
+            const object = { 'foo': 'bar' };
+            resData = JSON.stringify(object);
+            setResponse(res, contextType, resData, encoding);
             break;
           default:
             //エラーページ
@@ -97,14 +100,15 @@ const server = http.createServer(async (req, res) => {
         isResponse = false;
         filePath = "./public/index.html";
         console.log("POST PATH: " + path);
-        let postObject;
-        let postJson;
+        let query;
+        req.setEncoding('utf-8');
         // data受信イベントの発生時に断片データ(chunk)を取得
         req
           .on("data", (chunk) => {
             // JSON形式
             console.log("on data");
-            postJson = chunk;
+            query = qs.parse(chunk);
+            console.log(query);
           })
           .on("end", () => {
             isResponse = true;
@@ -117,17 +121,15 @@ const server = http.createServer(async (req, res) => {
                 break;
               case "/ajax":
                 console.log("ajax post start");
-                // JSON => OBJECT
-                postObject = JSON.parse(postJson);
-                console.log("postObject.name : " + postObject.name);
-                console.log("postObject.age  : " + postObject.age);
+                console.log("query.name : " + query.name);
+                console.log("query.age  : " + query.age);
                 let array = serverConfig.data;
-                contextType = "text/plain";
+                contextType = "application/json";
                 // OBJECT => STRING
                 resData = JSON.stringify(array);
                 console.log("array: " + array);
                 console.log("resData: " + resData);
-                setResponseText(res, contextType, resData, encoding);
+                setResponse(res, contextType, resData, encoding);
                 break;
               default:
                 // エラーページ

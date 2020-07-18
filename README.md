@@ -1,6 +1,7 @@
 # react-flux-training
 fluxの基礎を学ぶプロジェクト
 reactを使っています
+Link + axiosを使うためにnode serverを使っています
 
 ## プロジェクト作成
 - ディレクトリ作成
@@ -44,7 +45,6 @@ $ npm install --save-dev axios
 ```
 $ npm install --save-dev @babel/polyfill
 ```
-
 
 - @types/react-domが必要と言われたので、、、
 ```

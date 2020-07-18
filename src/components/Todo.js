@@ -20,20 +20,24 @@ class Todo extends React.Component {
     return (
       <div className={"rows"}>
         <div>
-          <li className={"todo-list-area"} onClick={this.toggleTodo}>
-            <div className={"todo-center todo-list " + todoClass}>
-              {todo.complete ? "👄" : "👅"}
-              {todo.text}
+          <li className={"todo-list"}>
+            <div className={"todo-center todo-container"}>
+              <div className={"item center"}>
+                <button className={"no-button"} onClick={this.toggleTodo}>
+                  {todo.complete ? "👄" : "👅"}
+                </button>
+              </div>
+              <div className={"item center todo-list-area " + todoClass}>{todo.text}</div>
+              <div className={"item center todo-list-button-area"}>
+                <button
+                  className={"todo-list-button"}
+                  onClick={this.deleteTodo}
+                >
+                  <i>&#x1f5d1; Delete</i>
+                </button>
+              </div>
             </div>
           </li>
-        </div>
-        <div className={"todo-list-button-area"}>
-          <button
-            className={"todo-list-button"}
-            onClick={this.deleteTodo}
-          >
-            <i>&#x1f5d1; Delete</i>
-          </button>
         </div>
       </div>
     );

@@ -2,6 +2,28 @@
   text-decoration: line-through;
 }
 
+.todo-list {
+  list-style: none;
+}
+
+.todo-container {
+  display: flex;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+}
+
+.no-button {
+  /* 枠線を消す */
+  border: none;
+  /* クリックしたときに表示される枠線を消す */
+  outline: none;
+  /* 背景の灰色を消す */
+  background: transparent;
+}
+
 .todo-list-area {
   width: 200px;
   height: 30px;
@@ -9,14 +31,11 @@
   border-style: solid;
   border-width: 0.1px;
   border-color: #bdc7d8;
-  list-style: none;
-  display: flex;
-  align-items: center;
 }
 
 .todo-list-button-area {
   padding: 0px 10px;
-  margin: 0px 200px 10px;
+  margin: 0px 10px;
 }
 .todo-list-button {
   color: #181818;

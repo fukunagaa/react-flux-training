@@ -33,7 +33,11 @@ $ npm install --save-dev babel-plugin-react-html-attrs
 
 - JSXでclass定義のためにclassnamesをインストール
 ```
-npm install --save-dev classnames
+$ npm install --save-dev classnames
+```
+- axiosをインストール
+```
+$ npm install --save-dev axios
 ```
 
 - @types/react-domが必要と言われたので、、、
